@@ -1,15 +1,13 @@
 'use client';
 
+import { UIEvent, useState, useRef } from 'react';
 import ScreenOne from './screen-one';
 import ScreenTwo from './screen-two';
 import Nav from './nav';
 import './screen.scss';
 
-import { UIEvent, useState, useRef } from 'react';
-
 export default function Home() {
-
-  const wrapper = useRef(null)
+  const wrapper = useRef(null);
   const [isSwitching, setIsSwitching] = useState(false);
   const [activeScreenIndex, setActiveScreenIndex] = useState(0);
   const [isFullScreen, setIsFullScreen] = useState(false);
@@ -19,18 +17,15 @@ export default function Home() {
   const [timeoutId, saveTimeoutId] = useState(0);
 
   function switchScreen(targetScreenIndex: number) {
-
-    if (isSwitching) return
+    if (isSwitching) return;
 
     // 目前只有0和1屏
-    if (targetScreenIndex > 1) return
+    if (targetScreenIndex > 1) return;
 
     if (wrapper.current) {
-
-      const target = wrapper.current as HTMLElement
+      const target = wrapper.current as HTMLElement;
       target.style.top =
-      -window.document.body.offsetHeight * targetScreenIndex * 2 + 'px';
-      // wrapper.current.style.scrollSanpAlign = 'start';
+        -window.document.body.offsetHeight * targetScreenIndex * 2 + 'px';
     }
 
     setIsSwitching(true);
@@ -38,7 +33,6 @@ export default function Home() {
     setTimeout(() => {
       setActiveScreenIndex(targetScreenIndex);
       setTimeout(() => {
-        // wrapper.current.style.scrollSanpAlign = 'none';
         setIsSwitching(false);
       }, 500);
     }, 500);
@@ -54,23 +48,19 @@ export default function Home() {
         const t = e.target as HTMLElement;
         let targetScreenIndex: number | undefined;
 
-        console.log(t.scrollTop);
-
         if (t.scrollTop > 32 && t.scrollTop <= 64) {
           // 滚动至底部 12px 区域内视作用户确认想要切换屏幕
           targetScreenIndex = 1;
-          console.log('reach bottom');
         }
 
         if (t.scrollTop < 32 && t.scrollTop >= 0) {
           // 滚动至顶部 12px 区域内视作用户确认想要切换屏幕
           targetScreenIndex = 0;
-          console.log('reach top');
         }
 
         if (targetScreenIndex === undefined) return;
 
-        switchScreen(targetScreenIndex)
+        switchScreen(targetScreenIndex);
 
         /* 等屏幕切换完成(动画结束)后再重新处理滚动事件 */
       }, 5)

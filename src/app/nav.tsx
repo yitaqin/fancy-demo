@@ -9,9 +9,6 @@ function BtnToggle({ icon }: { icon: String }) {
       type="button"
       className={`btn-toggle btn-toggle--${icon} w-7 h-7`}
     >
-      {/* {[1, 2, 3].map(() => (
-        <div className={`w-full h-[4px] bg-white rounded-[1px]`}></div>
-      ))} */}
       <div className={`btn-toggle__bar`}></div>
       <div className={`btn-toggle__bar`}></div>
       <div className={`btn-toggle__bar`}></div>
@@ -19,9 +16,24 @@ function BtnToggle({ icon }: { icon: String }) {
   );
 }
 
-function Menu() {
-  return <div className="site-menu"></div>;
-}
+const navItems = [
+  {
+    text: 'INTRODUCTION',
+    link: '',
+  },
+  {
+    text: 'THE TECHNOLOGY',
+    link: '',
+  },
+  {
+    text: 'TECH SPOTLIGHT',
+    link: '',
+  },
+  {
+    text: 'WHY MUSIC?',
+    link: '',
+  },
+];
 
 const menuItems = [
   {
@@ -58,24 +70,6 @@ export default function Nav({
   onNavClick: (index: number) => void;
 }) {
   //
-  const navItems = [
-    {
-      text: 'INTRODUCTION',
-      link: '',
-    },
-    {
-      text: 'THE TECHNOLOGY',
-      link: '',
-    },
-    {
-      text: 'TECH SPOTLIGHT',
-      link: '',
-    },
-    {
-      text: 'WHY MUSIC?',
-      link: '',
-    },
-  ];
   const [iconToggle, setIconToggle] = useState(['bars', 'x']);
   const [menuStates, setMenuStates] = useState(['hidden', 'visible']);
 

@@ -22,20 +22,9 @@ $fullscreen-duration: 600ms;
   height: fit-content;
   overflow: hidden;
 
-  // overflow-y: auto;
-  // scrollbar-width: none;
-  // scroll-snap-type: y mandatory;
-  // scroll-behavior: smooth;
-  // > .screen-one,
-  // > .screen-divider,
-  // > .screen-two {
-  //   scroll-snap-align: start;
-  // }
-
   transition-property: top;
   transition-duration: 1s;
 }
-
 
 
 .screen-two {
