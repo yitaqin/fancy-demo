@@ -51,7 +51,7 @@ export default function ScreenOne({
 
     if (index >= firstSentencePos && index < firstSentencePos + maxRow) {
       const diff = index - firstSentencePos;
-      const scale = (maxRow - diff) / 3;
+      const scale = (maxRow - diff) / 4;
       const rowIndex = Math.floor(diff); // 屏幕可视区域内的第几行
       let offsetY = rowIndex <= 2 ? `${(3 - rowIndex)*-10}px` : '0'; // 0,1,2 行需要往上移动让出变大的空间
       // let offsetY = '0'
@@ -119,14 +119,14 @@ export default function ScreenOne({
           loop
           autoPlay
           muted
-          src="/intro.mp4"
+          // src="/intro.mp4"
         ></video>
       </div>
       <div
         ref={sentenceContainer}
         className={`
           screen-one__sentence-container
-          text-[30px] lg:text-[48px]`}
+          text-[24px] md:text-[30px] lg:text-[48px]`}
         onScroll={handleScroll}
         onWheel={handleWhell}
       >

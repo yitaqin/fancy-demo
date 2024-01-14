@@ -1,10 +1,9 @@
-import { useRef } from 'react'
-
+import { useRef } from 'react';
 
 export default function ScreenTwo({
   init,
   fullscreen,
-  onFullscreen = function() {},
+  onFullscreen = function () {},
   className,
 }: {
   init: boolean;
@@ -12,32 +11,45 @@ export default function ScreenTwo({
   onFullscreen?: (fullscreen: boolean) => void;
   className?: string;
 }) {
-
-  const video = useRef(null)
+  const video = useRef(null);
 
   function exitFullscreen() {
-    if (!video.current) return
-    (video.current as HTMLVideoElement).pause()
-    onFullscreen(false)
+    if (!video.current) return;
+    (video.current as HTMLVideoElement).pause();
+    onFullscreen(false);
   }
 
   function playVideo() {
-    if (!video.current) return
-    (video.current as HTMLVideoElement).play()
-    onFullscreen(true)
+    if (!video.current) return;
+    (video.current as HTMLVideoElement).play();
+    onFullscreen(true);
   }
 
   return (
     <div
-      className={`screen-two ${className||''} ${init ? 'screen-two--init' : ''} ${fullscreen ? 'screen-two--fullscreen' : ''}`}
+      className={`screen-two ${className || ''} ${
+        init ? 'screen-two--init' : ''
+      } ${fullscreen ? 'screen-two--fullscreen' : ''}`}
     >
       <div className="screen-two__bg"></div>
       <div className="screen-two__main w-[280px] md:w-[580px] lg:w-[680px]">
-        <button type="button" className="screen-two__main__btn-close" onClick={exitFullscreen}>Close</button>
+        <button
+          type="button"
+          className="screen-two__main__btn-close"
+          onClick={exitFullscreen}
+        >
+          Close
+        </button>
         <div className="screen-two__main__preview">
-
-        <div className="screen-two__main__btn-play" onClick ={playVideo}>▶</div>
-        <div className="screen-two__main__title md:!w-auto">Introducing Feed</div>
+          <div
+            className="screen-two__main__btn-play"
+            onClick={playVideo}
+          >
+            ▶
+          </div>
+          <div className="screen-two__main__title md:!w-auto">
+            Introducing Feed
+          </div>
         </div>
         <video
           ref={video}
