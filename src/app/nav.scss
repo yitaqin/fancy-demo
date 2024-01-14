@@ -1,0 +1,61 @@
+.btn-toggle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  box-sizing: border-box;
+  padding: 2px;
+
+  > .btn-toggle__bar {
+    position: relative;
+    width: 100%;
+    height: 4px;
+    background-color: white;
+    border-radius: 1.5px;
+
+    transition-property: transform;
+    transition-duration: 300ms;
+  }
+
+  &:hover {
+    gap: 6px;
+    transition: gap 300ms;
+  }
+}
+
+.btn-toggle--x {
+  gap: 0;
+  
+  &:hover {
+    gap: 0;
+    
+    > .btn-toggle__bar:nth-child(1) {
+      transform: rotate(145deg);
+    }
+    > .btn-toggle__bar:nth-child(3) {
+      transform: rotate(215deg);
+    }
+  }
+
+  > .btn-toggle__bar:nth-child(1) {
+    top: 4px;
+    transform: rotate(135deg);
+  }
+  > .btn-toggle__bar:nth-child(2) {
+    transform: rotate(45deg);
+    opacity: 0;
+  }
+  > .btn-toggle__bar:nth-child(3) {
+    top: -4px;
+    transform: rotate(225deg);
+  }
+}
+
+.site-menu {
+  width: 100%;
+  height: 100%;
+  background-color: #320d7f;
+  display: flex;
+  align-items: center;
+}

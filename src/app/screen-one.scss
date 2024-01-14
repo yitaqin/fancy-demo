@@ -1,0 +1,86 @@
+.screen-one {
+  $text-color: #e6e6e6;
+
+  position: relative;
+  height: 100vh;
+  border: 12px solid $text-color;
+
+  &__bg {
+    z-index: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    /* 覆盖在视频上方降低视频明度，以突出页面中的白色文字等的主体内容 */
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.3);
+    }
+
+    video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__sentence-container {
+    z-index: 1;
+    position: absolute;
+    top: -12px;
+    left: -12px;
+    width: 100vw;
+    height: 100vh;
+    // padding-top: 50vh;
+    // padding-bottom: 50vh;
+    overflow-y: auto;
+    scrollbar-width: none;
+    overflow-x: hidden;
+    line-height: 1.5;
+    scroll-snap-type: y mandatory;
+    // scroll-padding-top: calc(50vh - 48px);
+    // scroll-padding-bottom: 50vh;
+
+  }
+
+  &__sentence {
+    $duration: 100ms;
+
+    height: calc(100vh / 7);
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: $text-color;
+    // opacity: 0;
+    
+    // scroll-snap-align: center;
+    position: relative;
+
+    transition-property: transform, opacity;
+    transition-duration: $duration;
+  }
+
+  &__intro-paragraph {
+    position: absolute;
+    font-size: 12px;
+    bottom: 0;
+    left: 0;
+    padding: 25px;
+    color: $text-color;
+    width: 430px;
+
+    p + p {
+      margin-top: 10px;
+    }
+  }
+}

@@ -1,0 +1,371 @@
+$fullscreen-duration: 600ms;
+
+.screen-container {
+  height: 100%;
+  overflow: auto;
+  background-color: #320d7f;
+
+  scrollbar-width: none;
+  scroll-snap-type: y mandatory;
+
+  > main {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+    scroll-snap-align: start;
+  }
+}
+
+.screen-wrapper {
+  position: relative;
+  top: 0;
+  height: fit-content;
+  overflow: hidden;
+
+  // overflow-y: auto;
+  // scrollbar-width: none;
+  // scroll-snap-type: y mandatory;
+  // scroll-behavior: smooth;
+  // > .screen-one,
+  // > .screen-divider,
+  // > .screen-two {
+  //   scroll-snap-align: start;
+  // }
+
+  transition-property: top;
+  transition-duration: 1s;
+}
+
+
+
+.screen-two {
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &__bg {
+    z-index: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/presentation-background.jpg');
+    background-position: center center;
+    background-size: cover;
+
+    .screen-two--init & {
+      transform: scale(1.4);
+      transition-duration: 36s;
+      transition-property: transform;
+      transition-timing-function: ease-out; // 一开始较快，随着动画的进行逐渐减速
+    }
+  }
+
+  &__main {
+    $height: 300px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+
+    z-index: 1;
+    position: relative;
+    top: 50vh;
+    height: $height;
+    overflow: hidden;
+    box-sizing: border-box;
+    padding-top: 24px;
+    border: 12px solid #320d7f;
+    background-color: rgba(0, 0, 0, 0.4);
+    transform: scale(2);
+    transform-origin: top center;
+
+    transition-property: width, height, background-color, transform, top;
+
+    
+
+    
+    .screen-two--init & {
+      top: 0;
+      transform: scale(1);
+      transition-duration: 1000ms;
+    }
+
+    
+  }/* end of &__main */
+
+  
+
+  &__main__video {
+    display: none;
+    opacity: 0;
+    z-index: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__main__preview {
+    position: relative;
+    top: 0;
+    opacity: 1;
+    transition-duration: $fullscreen-duration;
+    transition-property: opacity;
+    transition-delay: $fullscreen-duration;
+  }
+
+  &__main__btn-play {
+    margin: 0 auto;
+    position: relative;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 44px;
+    padding-left: 6px; // 保持三角形视觉居中
+    background-color: transparent;
+    color: #fff;
+
+    transition-duration: 300ms;
+    transition-property: background-color, color;
+
+    &::before {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      right: 0px;
+      bottom: 0px;
+      border-radius: 50%;
+      border: 2px solid #fff;
+    }
+
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      top: -4px;
+      left: -4px;
+      right: -4px;
+      bottom: -4px;
+      border-radius: 50%;
+      border: 2px solid #fff;
+    }
+
+    &:hover {
+      cursor: pointer;
+      background-color: #fff;
+      color: #320d7f;
+    }
+  }
+
+  &__main__title {
+    margin-top: 28px;
+    width: 240px;
+    font-size: 28px;
+    font-weight: 300;
+    padding: 0 32px;
+    text-align: center;
+
+    position: relative;
+    top: 32px;
+
+    .screen-two--init & {
+      top: 0;
+      transition-property: top;
+      transition-duration: .8s;
+      transition-delay: .5s;
+    }
+  }
+
+  &__main__btn-close {
+    z-index: 1;
+    position: absolute;
+    top: 24px;
+    display: block;
+    
+    // 需等全屏后再显示
+    right: 100%; // 移出可视区域
+    opacity: 0;
+    
+    width: 26px;
+    height: 26px;
+
+    // 增强可访问性：文字移出可视区域，让屏幕阅读器依然可读取 Close 文字
+    overflow: hidden;
+    padding-left: 26px;
+
+    &::before, &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: calc(50% - 2px);
+      display: block;
+      width: 100%;
+      height: 4px;
+      background-color: #ccc;
+      box-shadow: 0 0 2px rgba(0,0,0,.6);
+      transition: transform 300ms;
+    }
+
+    &::before {
+      transform: rotate(45deg);
+    }
+
+    &::after {
+      transform: rotate(-45deg);
+    }
+    
+    &:hover {
+      &::before {
+        transform: rotate(35deg);
+      }
+      &::after {
+        transform: rotate(-35deg);
+      }
+    }
+
+    .screen-two--fullscreen & {
+      right: 24px;
+      opacity: 1;
+      transition: opacity 600ms ease $fullscreen-duration;
+    }
+  }/* end of &__main__btn-close */
+}
+
+.screen-two--fullscreen {
+  .screen-scroll-tip {
+    opacity: 0;
+    transition: opacity $fullscreen-duration;
+  }
+  .screen-two__main {
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    transition-duration: $fullscreen-duration;
+  }
+  .screen-two__main__video {
+    display: block;
+    animation-name: video-fade-in;
+    animation-delay: $fullscreen-duration;
+    animation-duration: 300ms;
+    animation-timing-function: ease;
+    animation-fill-mode: forwards;
+
+    @keyframes video-fade-in {
+      0% {
+        display: block;
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+        display: block;
+      }
+    }
+  }
+  .screen-two__main__preview {
+    z-index: -1;
+    top: -60px;
+    opacity: 0;
+    transition-property: top, opacity;
+    transition-delay: 0s;
+  }
+}
+
+
+.screen-two--init {
+  .screen-two__bg {
+    transform: scale(1.4);
+    transition-duration: 36s;
+    transition-property: transform;
+  }
+}
+
+.screen-divider {
+  z-index: 1;
+  position: relative;
+  height: 100vh;
+
+  transition-property: top;
+  transition-duration: 500ms;
+
+  &::before {
+    bottom: 50%;
+    background-color: #e6e6e6;
+  }
+  &::after {
+    top: 50%;
+    background-color: #320d7f;
+  }
+  &::before, &::after {
+    content: '';
+    display: block;
+    position:absolute;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.screen-scroll-tip {
+  z-index: 1;
+  display: block;
+  position: absolute;
+  width: 150px;
+  bottom: 20px;
+  left: 50%;
+  margin-left: -75px;
+  text-align: center;
+  font-weight: 300;
+  font-size: 12px;
+  letter-spacing: 3px;
+
+  &::before {
+    content: '';
+    display: block;
+    position: relative;
+    top: 24px;
+    width: 26px;
+    height: 44px;
+    border-radius: 13px;
+    border: 2px solid #b3b3b3;
+    margin: 0 auto;
+  }
+
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 32px;
+    left: 50%;
+    margin-left: -3px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #b3b3b3;
+    animation-name: simulate-wheel-down;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+
+    @keyframes simulate-wheel-down {
+      0% {
+        top: 32px;
+      }
+      100% {
+        top: 40px;
+      }
+    }
+  }
+}
